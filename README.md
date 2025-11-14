@@ -51,18 +51,38 @@
  ## Example calling the /v1/assets endpoint with parameters
  ### Initialise the Assets API
 
-     var assetsApi = AtomicAssetsApiFactory.Version1.AssetsApi();
+     var assetsApi = AtomicAssetsApiFactory.MainNet1.AssetsApi;
+     
+     or
+
+     var assetsApi = AtomicAssetsApiFactory.TestNet2.AssetsApi;
+
+     NOTES:
+     MainNet1 => AtomicAssetsIO
+     MainNet2 => EOSAmsterdam
+     MainNet3 => EOSAuthority
+     TestNet1 => testnet3DK
+     TestNet2 => testnetNefty
 
  
  ### Build up the AssetsParameters with the AssetsUriParameterBuilder
 
-     var builder = new AssetsUriParameterBuilder().WithLimit(1);
+     var builder = new AssetsUriParameterBuilder()
+            .WithLimit(1)
+            .WithImmutableProperty("rarity","rare")
+            .WithOwner("username")
+            .WithCollectionName("mycollection")
+            .WithSchemaName("myschema");
+            .WithTemplateId(123456);
 
  
  ### Call the /assets endpoint, passing in the builder
 
      var assets = assetsApi.Assets(builder);
 
+### If you want to log your query for debugging
+
+    Debug.Log($"Query Parameters: {builder.Build()}");
  
  ### Print all asset ids
 
