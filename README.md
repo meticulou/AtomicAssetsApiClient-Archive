@@ -72,7 +72,7 @@
             .WithImmutableProperty("rarity","rare")
             .WithOwner("username")
             .WithCollectionName("mycollection")
-            .WithSchemaName("myschema");
+            .WithSchemaName("myschema")
             .WithTemplateId(123456);
 
  
