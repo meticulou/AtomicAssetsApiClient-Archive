@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Collections.Generic;
 
 namespace AtomicAssetsApiClient.Assets
 {
@@ -23,6 +24,14 @@ namespace AtomicAssetsApiClient.Assets
         private int? _limit;
         private SortStrategy? _sortStrategy;
         private string _sort;
+        private readonly List<KeyValuePair<string, string>> _immutableProperties = new List<KeyValuePair<string, string>>();
+
+        public AssetsUriParameterBuilder WithImmutableProperty(string key, object value)
+        {
+            string val = value?.ToString() ?? string.Empty;
+            _immutableProperties.Add(new KeyValuePair<string, string>(key, val));
+            return this;
+        }
 
         public AssetsUriParameterBuilder WithOwner(string owner)
         {
@@ -225,7 +234,10 @@ namespace AtomicAssetsApiClient.Assets
             {
                 parameterString.Append($"&schema_name={_schemaName}");
             }
-
+            foreach (var prop in _immutableProperties)
+            {
+                parameterString.Append($"&immutable_data.{prop.Key}={prop.Value}");
+            }
             return parameterString.ToString();
         }
     }
