@@ -88,10 +88,7 @@
 
      assets.Data.ToList().ForEach(a => Console.WriteLine(a.AssetId));
 
+ ### You can also get a single asset directly by its atomicasset id
 
-
-
-
-
-
+     var asset = assetsApi.Asset(1099553597937);
 
